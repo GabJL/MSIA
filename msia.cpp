@@ -205,7 +205,7 @@ void maduracion(vector<Individuo> &pob,const cInstance &c,float generacion, int 
 							 pob[i].solution[j]-=(int)((alpha*range*generacion)/Nc);
 						  else
 							 pob[i].solution[j]-=(int)((alpha*range)/(Nc*generacion));
-						if(pob[i].solution[j]<4)
+						if(pob[i].solution[j]<5)
 							pob[i].solution[j]=5;
 						if(pob[i].solution[j]>60)
 							pob[i].solution[j]=60;
@@ -284,7 +284,8 @@ int main (int argc, char **argv)
 	vector <Individuo> poblacion;
     generarPoblacion(poblacion,c);     
     Individuo * pob_clon; 
-    float best_aptitud=0;
+    float current_best_aptitud=0;
+    float global_best_aptitud = 100;
     int generaciones=0;    
     //while(best_aptitud!=8)
     
@@ -299,9 +300,11 @@ int main (int argc, char **argv)
 			seleccion(poblacion);			
 			regulation(poblacion);													
 		}
-		best_aptitud=poblacion[0].aptitud;		
+		current_best_aptitud=poblacion[0].aptitud;		
+	        if(global_best_aptitud > current_best_aptitud)
+			global_best_aptitud = current_best_aptitud;
 		generaciones++;		
-		cout<<"Generacion "<<i<<" mejor individuo "<<best_aptitud<<endl;
+		cout<<"Generacion "<<i<<" mejor individuo "<<current_best_aptitud<< " ( " << global_best_aptitud << " )" << endl;
 		elitismo(poblacion,c);
 	}                 
     printf("Resultado obtenido en la generacion: %d\n.",generaciones);                         
