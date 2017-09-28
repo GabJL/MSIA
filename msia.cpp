@@ -176,14 +176,13 @@ void clonacion(vector<Individuo> &pob)
 
 void maduracion(vector<Individuo> &pob,const cInstance &c,float generacion, int Nc)
 {		
-	int i,j;
-	float random_prob=static_cast <float> (rand()) / static_cast <float> (RAND_MAX);	
+	int i,j;	
 	for(i=0; i<pob.size();i++)
-	{		
+	{
+		float random_prob= static_cast <float> (rand())/ static_cast <float> (RAND_MAX);
 		if(random_prob<(pob[i].prob_mut/generacion+1))
 		{
-			float r=static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-			float alpha=static_cast <float> (rand()) / static_cast <float> (RAND_MAX);			
+			float r=static_cast <float> (rand()) / static_cast <float> (RAND_MAX);			
 			for(j=0;j<c.getTotalNumberOfPhases();j++)
 			{									
 				if(pob[i].solution[j]!=4)
@@ -251,7 +250,7 @@ void  SetProbMut(vector<Individuo> &pob)
 	for(i=0;i<pob.size();i++)	
 		prob_tot+=pob[i].aptitud;
 	for(i=0;i<pob.size();i++)
-		pob[i].prob_mut=(prob_tot/pob[i].aptitud);
+		pob[i].prob_mut=(pob[i].aptitud/prob_tot);
 }
 
 int main (int argc, char **argv)
